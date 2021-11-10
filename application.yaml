@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Sample Application.
+
+Parameters:
+    S3Bucket:
+        Type: String
+    S3Key:
+        Type: String
+    ApplicationName:
+        Type: String
+        
+Resources:
+    ApiGatewayApi:
+        Type: AWS::Serverless::Api
+        Properties:
+            StageName: prod
+    SampleApplication:
+        Type: 'AWS::Serverless::Function'
+        Properties:
+            FunctionName: 'SampleApplication'
+            Handler: index.handler
+            Runtime: nodejs12.x
+            CodeUri:
+                Bucket: !Ref S3Bucket
+                Key: !Ref S3Key
+            Description: Hello Lambda.
+            MemorySize: 128
+            Timeout: 10
+            Events:
+                ApiEvent:
+                    Type: Api
+                    Properties:
+                        Path: /
+                        Method: get
+                        RestApiId:
+                            Ref: ApiGatewayApi
