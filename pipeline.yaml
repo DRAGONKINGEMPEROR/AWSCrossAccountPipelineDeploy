@@ -147,7 +147,7 @@ Resources:
                     Name: Deploy_Prod
                     Actions:
                         - 
-                            Name: Deploy_YMUS_API_Prod
+                            Name: Deploy_API_Prod
                             ActionTypeId:
                                 Category: Deploy
                                 Owner: AWS
