@@ -130,12 +130,12 @@ Resources:
                             Configuration:
                                 ActionMode: CREATE_UPDATE
                                 Capabilities: CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND
-                                StackName: !Sub YMUS-PM-API-dev-stack-${AWS::Region}
+                                StackName: !Sub DevOps-Automation-API-pre-prod-stack-${AWS::Region}
                                 RoleArn: !GetAtt PipelineDevDeploymentRole.Arn
                                 TemplatePath: ApplicationBuildOutput::template-export.yml
                                 ParameterOverrides: !Sub | 
                                     { 
-                                        "ApplicationName": "YMUSPMAPIAPPNAME",
+                                        "ApplicationName": "APIAPPNAME",
                                         "S3Bucket": { "Fn::GetArtifactAtt" : [ "ApplicationBuildOutput", "BucketName" ] },
                                         "S3Key": { "Fn::GetArtifactAtt" : [ "ApplicationBuildOutput", "ObjectKey" ] }
                                     }
@@ -159,12 +159,12 @@ Resources:
                             Configuration:
                                 ActionMode: CREATE_UPDATE
                                 Capabilities: CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND
-                                StackName: !Sub YMUS-PM-API-prod-stack-${AWS::Region}
+                                StackName: !Sub DevOps-Automation-API-prod-stack-${AWS::Region}
                                 RoleArn: !Sub arn:aws:iam::${ProductionAccountId}:role/CloudFormationDeploymentRole
                                 TemplatePath: ApplicationBuildOutput::template-export.yml
                                 ParameterOverrides: !Sub | 
                                     { 
-                                        "ApplicationName": "YMUSPMAPIAPPNAME",
+                                        "ApplicationName": "APIAPPNAME",
                                         "S3Bucket": { "Fn::GetArtifactAtt" : [ "ApplicationBuildOutput", "BucketName" ] },
                                         "S3Key": { "Fn::GetArtifactAtt" : [ "ApplicationBuildOutput", "ObjectKey" ] }
                                     }
@@ -477,7 +477,7 @@ Resources:
                                         "cloudformation:ValidateTemplate"
                                     ],
                                     "Effect": "Allow",
-                                    "Resource": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/YMUS-PM-API-dev-stack-${AWS::Region}/*"
+                                    "Resource": "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/DevOps-Automation-API-pre-prod-stack-${AWS::Region}/*"
                                 }
                             ]
                         }
